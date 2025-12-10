@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol: ZERO | The Journey</title>
+    <style>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace; /* Hacker font */
+        }
+
+        body {
+            background-color: #050a14; /* Deep Dark Blue */
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Scanline effect for that retro monitor look */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            text-align: center;
+            z-index: 1;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #00f3ff; /* Neon Glow */
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #aab2bd;
+            margin-bottom: 3rem;
+        }
+
+        .highlight {
+            color: #00f3ff;
+            font-weight: bold;
+        }
+
+        /* --- THE SPECIAL BUTTON --- */
+        .btn-wrapper {
+            position: relative;
+            display: inline-block;
+            padding: 4px; /* Space for the border */
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* The rotating gradient background */
+        .btn-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                transparent, 
+                transparent, 
+                #00f3ff
+            );
+            animation: rotate 4s linear infinite;
+        }
+
+        /* The actual button on top of the gradient */
+        .btn {
+            position: relative;
+            background: #050a14;
+            color: #00f3ff;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .btn:hover {
+            background: #00f3ff;
+            color: #050a14;
+            box-shadow: 0 0 20px #00f3ff;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- PAGES / SECTIONS --- */
+        #main-page, #journey-page {
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* --- JOURNEY PAGE STYLES --- */
+        .terminal-window {
+            background: rgba(10, 20, 35, 0.9);
+            border: 1px solid #00f3ff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+        }
+
+        .terminal-header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        .log-entry {
+            margin-bottom: 20px;
+        }
+
+        .log-date {
+            color: #00f3ff;
+            font-weight: bold;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #00f3ff;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .back-link:hover { color: #00f3ff; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="main-page" class="visible">
+            <h1>ETHICAL HACKING <span class="highlight">JOURNEY</span></h1>
+            <p>Initiating Protocol: The Ethical Hacker Journey</p>
+            
+            <div class="btn-wrapper" onclick="revealJourney()">
+                <button class="btn">Know More</button>
+            </div>
+        </div>
+
+        <div id="journey-page" class="hidden">
+            <h1>Identity: <span class="highlight">Newbie</span></h1>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    root@kali-linux:~# cat progress_log.txt
+                </div>
+
+                <div class="log-entry">
+                    <p><span class="log-date">[DAY 01]</span> STATUS: INITIALIZED</p>
+                    <br>
+                    <p>> I am a newbie currently diving into the world of Ethical Hacking.</p>
+                    <p>> This is my first recorded progress.</p>
+                    <p>> <span class="highlight">Current Lesson:</span> Leveraging AI assistance.</p>
+                    <p>> Note to self: I learned to use AI properly to guide my learning, but the objective remains to understand the main core of Ethical Hacking, and I'll still remain to be self-reliant and not rely on AI too much.</p>
+                </div>
+                <p>root@kali-linux:~# <span class="cursor"></span></p>
+            </div>
+
+            <a class="back-link" onclick="goBack()">[ Return to Main Menu ]</a>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the transition
+        function revealJourney() {
+            const mainPage = document.getElementById('main-page');
+            const journeyPage = document.getElementById('journey-page');
+
+            // Fade out main page
+            mainPage.style.opacity = '0';
+
+            setTimeout(() => {
+                mainPage.classList.remove('visible');
+                mainPage.classList.add('hidden');
+                
+                // Show journey page
+                journeyPage.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                setTimeout(() => {
+                    journeyPage.style.opacity = '1';
+                }, 50);
+                
+            }, 800); // Matches the CSS transition time
+        }
+
+        function goBack() {
+            const mainPage = document.getElementById('main-page');
+            const journeyPage = document.getElementById('journey-page');
+
+            journeyPage.style.opacity = '0';
+
+            setTimeout(() => {
+                journeyPage.classList.add('hidden');
+                
+                mainPage.classList.remove('hidden');
+                mainPage.classList.add('visible');
+                setTimeout(() => {
+                    mainPage.style.opacity = '1';
+                }, 50);
+            }, 800);
+        }
+    </script>
+</body>
+</html>
