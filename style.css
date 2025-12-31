@@ -1,0 +1,15 @@
+header {
+    background-color: rgb(105, 101, 104);
+}
+
+body {
+    background-image: url("back.jpg");
+}
+
+.about-us {
+    padding: 20px;
+}
+
+.progress {
+    padding: 20px;
+}
